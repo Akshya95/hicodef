@@ -43,10 +43,10 @@ function hm_notice( $msg ) { echo '<div class="updated notice is-dismissible"><p
 // -- PAGE: HOMEPAGE --
 function hicodef_page_homepage() {
     if ( isset( $_POST['hm_homepage_save'] ) ) {
-        update_option( 'hicodef_hero_title', sanitize_text_field($_POST['hicodef_hero_title']) );
-        update_option( 'hicodef_hero_desc', sanitize_textarea_field($_POST['hicodef_hero_desc']) );
-        hm_notice( 'Homepage settings saved.' );
-    }
+    update_option( 'hicodef_hero_title', sanitize_text_field($_POST['hicodef_hero_title']) );
+    update_option( 'hicodef_hero_desc', sanitize_textarea_field($_POST['hicodef_hero_desc']) );
+    hm_notice( 'Homepage settings saved.' );
+}
     hm_wrap( 'Homepage Settings' );
     ?>
     <form method="post">
