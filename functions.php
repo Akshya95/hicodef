@@ -2,11 +2,11 @@
 /**
  * HICODEF Theme — functions.php
  * @package CompassionNGO
- * @version 2.4.1
+ * @version 2.4
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-// -- Safe include helper --
+// ── Safe include helper ─────────────────────────────────────
 if ( ! function_exists( 'hicodef_require' ) ) {
     function hicodef_require( $file ) {
         $path = get_template_directory() . $file;
@@ -16,11 +16,9 @@ if ( ! function_exists( 'hicodef_require' ) ) {
     }
 }
 
-// Load components
 hicodef_require( '/inc/template-tags.php' );
 hicodef_require( '/inc/customizer-colors.php' );
 hicodef_require( '/inc/admin-panel.php' );
-
 // -- Theme setup --
 add_action( 'after_setup_theme', 'hicodef_setup' );
 function hicodef_setup() {
