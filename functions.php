@@ -62,3 +62,10 @@ function hicodef_register_cpts() {
 
 // Flush rewrite on activation
 add_action( 'after_switch_theme', function() { flush_rewrite_rules(); } );
+
+add_action( 'admin_enqueue_scripts', function($hook) {
+    if ( strpos($hook, 'hicodef') !== false ) {
+        wp_enqueue_media();
+        wp_enqueue_script( 'hicodef-admin-js', get_template_directory_uri() . '/js/admin.js', ['jquery'], '1.0', true );
+    }
+});
