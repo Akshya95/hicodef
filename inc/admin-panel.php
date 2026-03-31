@@ -159,7 +159,7 @@ function hicodef_page_partners() {
             $partners = hicodef_partners_list();
             $partners[] = ['id' => time(), 'name' => $name, 'img' => esc_url_raw($_POST['partner_img'])];
             update_option( 'hicodef_partners', wp_json_encode( $partners ), false );
-            hm_notice( 'Partner added.' ); // Fixed syntax error previously here
+            hm_notice( "Partner " . $name . " added successfully." ); // Fixed syntax error previously here
         }
     }
     hm_wrap( 'Partner carousel' );
