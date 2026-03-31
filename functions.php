@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // ── Safe include helper ─────────────────────────────────────
 // ── Safe include helper (Corrected) ──────────────────────────
+// ── Safe include helper ─────────────────────────────────────
 if ( ! function_exists( 'hicodef_require' ) ) {
     function hicodef_require( $file ) {
         $path = get_template_directory() . $file;
@@ -16,6 +17,7 @@ if ( ! function_exists( 'hicodef_require' ) ) {
         }
     }
 }
+
 hicodef_require( '/inc/template-tags.php' );
 hicodef_require( '/inc/customizer-colors.php' );
 hicodef_require( '/inc/admin-panel.php' );
