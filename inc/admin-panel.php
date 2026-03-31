@@ -78,7 +78,7 @@ function hicodef_page_partners() {
                 'img'  => esc_url_raw( $_POST['partner_img'] )
             ];
             update_option( 'hicodef_partners', wp_json_encode( array_values($partners) ), false );
-            hm_notice( "Partner " . $name . " added successfully." );
+            hm_notice( "Partner " . $name . " added. Now visible in the homepage carousel." );
         }
     }
     hm_wrap( 'Partner Carousel Manager' );
