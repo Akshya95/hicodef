@@ -2,13 +2,13 @@
 /**
  * HICODEF Theme — functions.php
  * @package CompassionNGO
- * @version 2.4
+ * @version 2.4.1
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-// ── Safe include helper ─────────────────────────────────────
-// ── Safe include helper (Corrected) ──────────────────────────
-// ── Safe include helper ─────────────────────────────────────
+/**
+ * Safe include helper
+ */
 if ( ! function_exists( 'hicodef_require' ) ) {
     function hicodef_require( $file ) {
         $path = get_template_directory() . $file;
@@ -18,11 +18,14 @@ if ( ! function_exists( 'hicodef_require' ) ) {
     }
 }
 
+// Load required files
 hicodef_require( '/inc/template-tags.php' );
 hicodef_require( '/inc/customizer-colors.php' );
 hicodef_require( '/inc/admin-panel.php' );
 
-// ── Theme setup ─────────────────────────────────────────────
+/**
+ * Theme setup
+ */
 add_action( 'after_setup_theme', 'hicodef_setup' );
 function hicodef_setup() {
     load_theme_textdomain( 'compassion-ngo', get_template_directory() . '/languages' );
@@ -38,16 +41,20 @@ function hicodef_setup() {
         'flex-width'  => true,
         'flex-height' => true,
     ) );
+    
     add_image_size( 'compassion-card', 560, 360, true );
     add_image_size( 'compassion-hero', 1920, 700, true );
     add_image_size( 'compassion-team', 300, 300, true );
+    
     register_nav_menus( array(
         'primary' => __( 'Primary Menu', 'compassion-ngo' ),
         'footer'  => __( 'Footer Menu',  'compassion-ngo' ),
     ) );
 }
 
-// ── Scripts & styles ────────────────────────────────────────
+/**
+ * Scripts & styles
+ */
 add_action( 'wp_enqueue_scripts', 'hicodef_scripts' );
 function hicodef_scripts() {
     wp_enqueue_style( 'hicodef-fonts',
@@ -55,17 +62,22 @@ function hicodef_scripts() {
         array(), null );
     wp_enqueue_style( 'compassion-style', get_stylesheet_uri(), array( 'hicodef-fonts' ), '2.4' );
     wp_enqueue_style( 'hicodef-slider', get_template_directory_uri() . '/css/slider.css', array(), '2.4' );
+    
     wp_enqueue_script( 'compassion-main', get_template_directory_uri() . '/js/main.js', array(), '2.4', true );
+    
     if ( is_front_page() ) {
         wp_enqueue_script( 'hicodef-slider',   get_template_directory_uri() . '/js/slider.js',            array( 'compassion-main' ), '2.4', true );
         wp_enqueue_script( 'hicodef-partners', get_template_directory_uri() . '/js/partners-carousel.js', array( 'compassion-main' ), '2.4', true );
     }
+    
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
     }
 }
 
-// ── Widgets ─────────────────────────────────────────────────
+/**
+ * Widgets
+ */
 add_action( 'widgets_init', 'hicodef_widgets' );
 function hicodef_widgets() {
     $sidebars = array(
@@ -86,13 +98,14 @@ function hicodef_widgets() {
     }
 }
 
-// ── Custom Post Types ────────────────────────────────────────
+/**
+ * Custom Post Types
+ */
 add_action( 'init', 'hicodef_register_cpts' );
 function hicodef_register_cpts() {
-
     // Projects
     register_post_type( 'program', array(
-        'labels'      => array( 'name' => 'Projects', 'singular_name' => 'Project', 'menu_name' => 'Projects', 'add_new_item' => 'Add New Project', 'edit_item' => 'Edit Project' ),
+        'labels'      => array( 'name' => 'Projects', 'singular_name' => 'Project', 'menu_name' => 'Projects' ),
         'public'      => true,
         'has_archive' => true,
         'rewrite'     => array( 'slug' => 'projects' ),
@@ -167,7 +180,9 @@ function hicodef_register_cpts() {
     ) );
 }
 
-// ── Meta boxes ──────────────────────────────────────────────
+/**
+ * Meta boxes
+ */
 add_action( 'add_meta_boxes', 'hicodef_add_meta_boxes' );
 function hicodef_add_meta_boxes() {
     add_meta_box( 'hicodef_project_meta', 'Project Details', 'hicodef_project_meta_cb', 'program', 'side', 'high' );
@@ -246,7 +261,9 @@ function hicodef_pub_meta_cb( $post ) {
     echo '</table>';
 }
 
-// ── Save meta ───────────────────────────────────────────────
+/**
+ * Save meta
+ */
 add_action( 'save_post', 'hicodef_save_all_meta' );
 function hicodef_save_all_meta( $post_id ) {
     if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
@@ -280,15 +297,21 @@ function hicodef_save_all_meta( $post_id ) {
     }
 }
 
-// ── Excerpt ─────────────────────────────────────────────────
+/**
+ * Excerpt filters
+ */
 add_filter( 'excerpt_length', function() { return 20; } );
 add_filter( 'excerpt_more',   function() { return '&hellip;'; } );
 
-// ── Body classes ─────────────────────────────────────────────
+/**
+ * Body classes
+ */
 add_filter( 'body_class', function( $classes ) {
     if ( is_singular() ) $classes[] = 'singular';
     return $classes;
 } );
 
-// ── Flush rewrite on activation ──────────────────────────────
+/**
+ * Flush rewrite on activation
+ */
 add_action( 'after_switch_theme', function() { flush_rewrite_rules(); } );
