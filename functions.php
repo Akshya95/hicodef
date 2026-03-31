@@ -7,10 +7,13 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // ── Safe include helper ─────────────────────────────────────
-function hicodef_require( $file ) {
-    $path = get_template_directory() . $file;
-    if ( file_exists( $path ) ) {
-        require_once $path;
+// ── Safe include helper (Corrected) ──────────────────────────
+if ( ! function_exists( 'hicodef_require' ) ) {
+    function hicodef_require( $file ) {
+        $path = get_template_directory() . $file;
+        if ( file_exists( $path ) ) {
+            require_once $path;
+        }
     }
 }
 hicodef_require( '/inc/template-tags.php' );
